@@ -1,7 +1,5 @@
 # MissAV 小助手
 
-![访问量](traffic/views.svg)
-
 在 MissAV / ThisAV 的播放页上，帮你把 `m3u8` 找出来、按最高画质播放、顺手把片子下载下来。
 
 一个用户脚本，装上就有一个小面板贴在页面上。
@@ -69,3 +67,13 @@ README 的结构和展示方式，参考了 [ChinaGodMan/UserScripts](https://gi
 ## License
 
 MIT
+
+## Star 趋势
+
+<a href="https://www.star-history.com/#ccrichard3/MissAV-Helper&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ccrichard3/MissAV-Helper&type=date&theme=dark&legend=top-left" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ccrichard3/MissAV-Helper&type=date&legend=top-left" />
+    <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ccrichard3/MissAV-Helper&type=date&legend=top-left" />
+  </picture>
+</a>
