@@ -1,2 +1,7 @@
 .DS_Store
 .MissAV merged helper.user.js.bak-*
+
+# traffic chart (committed on purpose)
+!/scripts/
+!/traffic/
+!/.github/
