@@ -6,9 +6,10 @@
     </linearGradient>
   </defs>
   <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif">
-    <text x="44" y="18" font-size="12" fill="currentColor" fill-opacity="0.75">访问量 · 10-02 至 10-17</text>
-    <text x="744" y="18" text-anchor="end" font-size="11" fill="currentColor" fill-opacity="0.55">浏览 3 · 访客 2 · 克隆 5</text>
-    <line x1="44" y1="180.0" x2="744" y2="180.0" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/><text x="36" y="184.0" text-anchor="end" font-size="10" fill="currentColor" fill-opacity="0.55">0</text><line x1="44" y1="107.0" x2="744" y2="107.0" stroke="currentColor" stroke-opacity="0.16" stroke-width="1"/><text x="36" y="111.0" text-anchor="end" font-size="10" fill="currentColor" fill-opacity="0.55">1</text><line x1="44" y1="34.0" x2="744" y2="34.0" stroke="currentColor" stroke-opacity="0.16" stroke-width="1"/><text x="36" y="38.0" text-anchor="end" font-size="10" fill="currentColor" fill-opacity="0.55">2</text>
+    <rect x="0" y="0" width="760" height="210" rx="6" fill="#ffffff"/>
+    <text x="44" y="18" font-size="12" fill="#24292f" fill-opacity="0.75">访问量 · 10-02 至 10-17</text>
+    <text x="744" y="18" text-anchor="end" font-size="11" fill="#24292f" fill-opacity="0.55">浏览 3 · 访客 2 · 克隆 5</text>
+    <line x1="44" y1="180.0" x2="744" y2="180.0" stroke="#24292f" stroke-opacity="0.3" stroke-width="1"/><text x="36" y="184.0" text-anchor="end" font-size="10" fill="#24292f" fill-opacity="0.55">0</text><line x1="44" y1="107.0" x2="744" y2="107.0" stroke="#24292f" stroke-opacity="0.16" stroke-width="1"/><text x="36" y="111.0" text-anchor="end" font-size="10" fill="#24292f" fill-opacity="0.55">1</text><line x1="44" y1="34.0" x2="744" y2="34.0" stroke="#24292f" stroke-opacity="0.16" stroke-width="1"/><text x="36" y="38.0" text-anchor="end" font-size="10" fill="#24292f" fill-opacity="0.55">2</text>
     
     <path d="M 44.0 180.0 C 51.8 180.0 75.1 180.0 90.7 180.0 C 106.2 180.0 121.8 180.0 137.3 180.0 C 152.9 180.0 168.4 180.0 184.0 180.0 C 199.6 180.0 215.1 180.0 230.7 180.0 C 246.2 180.0 261.8 180.0 277.3 180.0 C 292.9 180.0 308.4 180.0 324.0 180.0 C 339.6 180.0 355.1 192.2 370.7 180.0 C 386.2 167.8 401.8 107.0 417.3 107.0 C 432.9 107.0 448.4 167.8 464.0 180.0 C 479.6 192.2 495.1 180.0 510.7 180.0 C 526.2 180.0 541.8 180.0 557.3 180.0 C 572.9 180.0 588.4 204.3 604.0 180.0 C 619.6 155.7 635.1 34.0 650.7 34.0 C 666.2 34.0 681.8 155.7 697.3 180.0 C 712.9 204.3 736.2 180.0 744.0 180.0 L 744.0 180.0 L 44.0 180.0 Z" fill="url(#fill)"/>
     <path d="M 44.0 180.0 C 51.8 167.8 75.1 119.2 90.7 107.0 C 106.2 94.8 121.8 94.8 137.3 107.0 C 152.9 119.2 168.4 167.8 184.0 180.0 C 199.6 192.2 215.1 192.2 230.7 180.0 C 246.2 167.8 261.8 107.0 277.3 107.0 C 292.9 107.0 308.4 167.8 324.0 180.0 C 339.6 192.2 355.1 180.0 370.7 180.0 C 386.2 180.0 401.8 180.0 417.3 180.0 C 432.9 180.0 448.4 180.0 464.0 180.0 C 479.6 180.0 495.1 180.0 510.7 180.0 C 526.2 180.0 541.8 192.2 557.3 180.0 C 572.9 167.8 588.4 119.2 604.0 107.0 C 619.6 94.8 635.1 94.8 650.7 107.0 C 666.2 119.2 681.8 167.8 697.3 180.0 C 712.9 192.2 736.2 180.0 744.0 180.0" fill="none" stroke="#8250df" stroke-width="1.5"
@@ -17,9 +18,9 @@
           stroke-linecap="round" stroke-linejoin="round"/>
     <circle cx="744.0" cy="180.0" r="3.2" fill="#2da44e"/>
     <line x1="44" y1="180" x2="744" y2="180"
-          stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/>
-    <text x="744.0" y="198" text-anchor="middle" font-size="10" fill="currentColor" fill-opacity="0.55">10-17</text><text x="417.3" y="198" text-anchor="middle" font-size="10" fill="currentColor" fill-opacity="0.55">10-10</text><text x="90.7" y="198" text-anchor="middle" font-size="10" fill="currentColor" fill-opacity="0.55">10-03</text>
-    <g transform="translate(52,170)" font-size="10" fill="currentColor" fill-opacity="0.7">
+          stroke="#24292f" stroke-opacity="0.3" stroke-width="1"/>
+    <text x="744.0" y="198" text-anchor="middle" font-size="10" fill="#24292f" fill-opacity="0.55">10-17</text><text x="417.3" y="198" text-anchor="middle" font-size="10" fill="#24292f" fill-opacity="0.55">10-10</text><text x="90.7" y="198" text-anchor="middle" font-size="10" fill="#24292f" fill-opacity="0.55">10-03</text>
+    <g transform="translate(52,170)" font-size="10" fill="#24292f" fill-opacity="0.7">
       <line x1="0" y1="-3" x2="16" y2="-3" stroke="#2da44e" stroke-width="2.2"/>
       <text x="22" y="0">浏览</text>
       <line x1="58" y1="-3" x2="74" y2="-3" stroke="#8250df" stroke-width="1.5" stroke-dasharray="4 3"/>
