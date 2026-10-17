@@ -5,3 +5,4 @@
 !/scripts/
 !/traffic/
 !/.github/
+__pycache__/
