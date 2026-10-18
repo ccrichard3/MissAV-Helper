@@ -3,8 +3,8 @@
 // @name:zh-CN         MissAV小助手
 // @description        Remove noisy ads, keep playback stable, and expose only the highest-resolution HLS download.
 // @description:zh-CN  合并增强和下载功能：去广告、稳定播放、只显示最高分辨率下载。
-// @author             codex
-// @namespace          codex.missav.helper
+// @author             ccrichard3
+// @namespace          ccrichard3.missav.helper
 // @license            MIT
 // @match              *://missav.ai/*
 // @match              *://missav.ws/*
@@ -27,7 +27,7 @@
 // @connect            missav.media
 // @connect            *
 // @run-at             document-start
-// @version            2026.6.15.10
+// @version            2026.6.15.12
 // ==/UserScript==
 
 (() => {
@@ -39,9 +39,7 @@
     const DEFAULT_DOWNLOAD_CONCURRENCY = 8;
     const MIN_DOWNLOAD_CONCURRENCY = 1;
     const MAX_DOWNLOAD_CONCURRENCY = 16;
-    const MAX_QUALITY_HEIGHT = 10000;
     const PROBE_QUALITIES = [4320, 2160, 1440, 1080, 720, 480, 360];
-    const STORE_SELECTED_HEIGHT = 'missav-helper-selected-height';
     const STORE_DOWNLOAD_CONCURRENCY = 'missav-helper-download-concurrency';
     const STATE = {
         urls: [],
@@ -57,7 +55,6 @@
         keyCache: new Map(),
         playlistCache: new Map(),
         invalidUrls: new Set(),
-        selectedHeight: readStoredNumber(STORE_SELECTED_HEIGHT, 0),
         downloadConcurrency: readStoredNumber(STORE_DOWNLOAD_CONCURRENCY, DEFAULT_DOWNLOAD_CONCURRENCY),
         refreshedAt: 0,
         statusText: '',
@@ -218,7 +215,7 @@
         addDerivedQualityUrls();
 
         let candidates = getSortedCandidates();
-        STATE.best = pickDisplayCandidate(candidates);
+        STATE.best = candidates[0] || null;
         renderPanel();
 
         const hasDirectCandidate = candidates.some(item => (item.height || heightFromUrl(item.url)) > 0);
@@ -237,7 +234,7 @@
         }
 
         candidates = getSortedCandidates();
-        STATE.best = await pickPreferredPlayableCandidate(candidates);
+        STATE.best = await pickBestPlayableCandidate(candidates);
         renderPanel();
         return STATE.best;
     }
@@ -248,22 +245,6 @@
             .map(item => ({ ...item }));
         candidates.sort(compareCandidates);
         return candidates;
-    }
-
-    function pickDisplayCandidate(candidates) {
-        const selectedHeight = getSelectedHeight();
-        if (selectedHeight) {
-            return candidates.find(item => candidateHeight(item) === selectedHeight) || null;
-        }
-        return candidates[0] || null;
-    }
-
-    async function pickPreferredPlayableCandidate(candidates) {
-        const selectedHeight = getSelectedHeight();
-        const preferred = selectedHeight
-            ? candidates.filter(item => candidateHeight(item) === selectedHeight)
-            : candidates;
-        return pickBestPlayableCandidate(preferred);
     }
 
     async function pickBestPlayableCandidate(candidates) {
@@ -496,14 +477,13 @@
         }
         if (!STATE.panel) return;
         const best = STATE.best;
-        const selectedHeight = getSelectedHeight();
-        const label = best ? `${candidateHeight(best) || '最高'}p` : selectedHeight ? `${selectedHeight}p` : '解析中';
+        const label = best ? `${candidateHeight(best) || '最高'}p` : '解析中';
         const url = best ? best.url : '';
 
         STATE.panel.innerHTML = `
             <div class="mah-title">MissAV小助手</div>
             <div class="mah-row">
-                ${buildQualitySelect(best, label)}
+                <span class="mah-quality">${escapeHtml(label)}</span>
                 <div class="mah-actions">
                     <button type="button" data-action="download-ts"${url ? '' : ' disabled'}>流式下载 TS</button>
                     <button type="button" data-action="browser-download"${url ? '' : ' disabled'}>浏览器下载</button>
@@ -518,12 +498,6 @@
             <div class="mah-status${STATE.statusError ? ' mah-error' : ''}">${escapeHtml(STATE.statusText)}</div>
         `;
         STATE.status = STATE.panel.querySelector('.mah-status');
-        STATE.panel.querySelector('[data-action="quality-select"]').addEventListener('change', event => {
-            const height = Number(event.target.value) || 0;
-            saveSelectedHeight(height);
-            setStatus(height ? `已选择 ${height}p` : '已切回自动最高');
-            refreshBest().catch(err => setStatus(`解析失败：${err.message || err}`, true));
-        });
         STATE.panel.querySelector('[data-action="download-ts"]').addEventListener('click', () => downloadBestTs());
         STATE.panel.querySelector('[data-action="browser-download"]').addEventListener('click', () => triggerBrowserDownload(url));
         STATE.panel.querySelector('[data-action="stop"]').addEventListener('click', () => {
@@ -534,41 +508,6 @@
             event.target.value = value;
             setStatus(`并发已设置为 ${value}`);
         });
-    }
-
-    function buildQualitySelect(best, label) {
-        const selectedHeight = getSelectedHeight();
-        const currentHeight = selectedHeight || candidateHeight(best);
-        const heights = getSelectableHeights(best, currentHeight);
-        const options = heights.map(height => {
-            const selected = height === currentHeight ? ' selected' : '';
-            return `<option value="${height}"${selected}>${height}p</option>`;
-        });
-        options.push(`<option value="0"${currentHeight ? '' : ' selected'}>自动最高</option>`);
-        if (!options.length) {
-            options.push(`<option value="0" selected>${escapeHtml(label)}</option>`);
-        }
-        return `<select class="mah-quality" data-action="quality-select" title="选择分辨率">${options.join('')}</select>`;
-    }
-
-    function getSelectableHeights(best, currentHeight) {
-        const heights = getSortedCandidates()
-            .map(candidateHeight)
-            .filter(height => height > 0);
-        if (candidateHeight(best)) heights.push(candidateHeight(best));
-        if (currentHeight) heights.push(currentHeight);
-        return uniqueNumbers(heights);
-    }
-
-    function getSelectedHeight() {
-        return clampNumber(STATE.selectedHeight, 0, MAX_QUALITY_HEIGHT);
-    }
-
-    function saveSelectedHeight(value) {
-        const height = clampNumber(value, 0, MAX_QUALITY_HEIGHT);
-        STATE.selectedHeight = height;
-        writeStoredNumber(STORE_SELECTED_HEIGHT, height);
-        return height;
     }
 
     function getDownloadConcurrency() {
@@ -651,11 +590,7 @@
 
     async function collectBestTsWithFallback(signal) {
         await refreshBest();
-        const selectedHeight = getSelectedHeight();
-        let candidates = getSortedCandidates();
-        if (selectedHeight) {
-            candidates = candidates.filter(candidate => candidateHeight(candidate) === selectedHeight);
-        }
+        const candidates = getTopResolutionCandidates();
         let lastErr = null;
 
         for (const candidate of candidates) {
@@ -676,16 +611,19 @@
                 if (err && err.name === 'AbortError') throw err;
                 lastErr = err;
                 STATE.invalidUrls.add(candidate.url);
-                if (candidate.source !== 'derived' && !isNotFoundError(err)) {
-                    setStatus(`跳过不可用清晰度 ${candidate.height || '未知'}p：${err.message || err}`);
-                }
+                setStatus(`最高分辨率 ${candidate.height || '未知'}p 下载失败：${err.message || err}`, true);
             }
         }
 
-        if (selectedHeight && lastErr) {
-            throw new Error(`所选 ${selectedHeight}p 不可用：${lastErr.message || lastErr}`);
-        }
-        throw lastErr || new Error(selectedHeight ? `没有找到 ${selectedHeight}p 下载地址` : '没有找到可下载的 m3u8');
+        throw lastErr || new Error('最高分辨率下载失败');
+    }
+
+    function getTopResolutionCandidates() {
+        const candidates = getSortedCandidates();
+        if (!candidates.length) return [];
+        const topHeight = candidateHeight(candidates[0]);
+        if (!topHeight) return candidates.slice(0, 1);
+        return candidates.filter(candidate => candidateHeight(candidate) === topHeight);
     }
 
     async function collectSegmentsConcurrently(segments, signal) {

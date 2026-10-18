@@ -7,7 +7,7 @@
 ## 能干什么
 
 - 自动嗅探当前页面可用的 `m3u8`
-- 默认挑可用的最高分辨率，也可以手动切
+- 始终挑当前可用的最高分辨率
 - **流式下载 TS**：脚本自己抓分片、合并，最后交给浏览器下载
 - **浏览器下载**：直接把最高画质的 `m3u8` 丢给浏览器
 - 分片并发数可调，范围 1–16，改完自动记住
@@ -24,9 +24,9 @@
 
 ## 面板怎么用
 
-### 换分辨率
+### 分辨率
 
-左边的分辨率按钮直接点就能切。`自动最高` 会挑当前可用的最高一档。
+面板上显示当前解析到的最高分辨率，脚本始终用它，不需要手动挑。
 
 ### 下载
 
@@ -44,6 +44,11 @@
 - 「流式下载 TS」走的是脚本自己的分片逻辑，所以 NDM 接不到它 —— 这是设计如此
 
 ## 更新记录
+
+### 2026.6.15.12
+
+- 去掉手动切换分辨率，始终使用当前可用的最高一档
+- 解析失败时退回列表里的第一个候选，不再卡在「解析中」
 
 ### 2026.6.15.10
 
@@ -68,12 +73,10 @@ README 的结构和展示方式，参考了 [ChinaGodMan/UserScripts](https://gi
 
 MIT
 
-## Star 趋势
+## 访问量
 
-<a href="https://www.star-history.com/#ccrichard3/MissAV-Helper&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ccrichard3/MissAV-Helper&type=date&theme=dark&legend=top-left" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ccrichard3/MissAV-Helper&type=date&legend=top-left" />
-    <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ccrichard3/MissAV-Helper&type=date&legend=top-left" />
-  </picture>
-</a>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="traffic/views-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="traffic/views.svg" />
+  <img alt="访问量" src="traffic/views.svg" />
+</picture>
