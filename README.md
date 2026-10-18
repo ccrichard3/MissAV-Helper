@@ -73,10 +73,10 @@ README 的结构和展示方式，参考了 [ChinaGodMan/UserScripts](https://gi
 
 MIT
 
-## 访问量
+## 使用趋势
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="traffic/views-dark.svg" />
   <source media="(prefers-color-scheme: light)" srcset="traffic/views.svg" />
-  <img alt="访问量" src="traffic/views.svg" />
+  <img alt="使用趋势" src="traffic/views.svg" />
 </picture>
